@@ -1,5 +1,11 @@
+/**
+	Data types to use whenn interfacing with the Windows MIDI subsystem
+	@file MIDIMsgDefs.h
+	@author Cole McKinney
+	@version 2022-01-05
+*/
+
 #pragma once
-#include <ostream>
 
 #define MIDI_MSG_CODE(m) (m.bData[0] & 0xF0)
 #define MIDI_MSG_CHNL(m) (m.bData[0] & 0x0F)
@@ -29,6 +35,7 @@ namespace Midi {
 		SYSTEM = 0xF0
 	};
 
+	// message for resetting the state of a MIDI output device
 	const ShortMsg ALL_NOTES_OFF = {CTRL_CHANGE, 0x7B, 0, 0};
 }
 
