@@ -39,7 +39,7 @@ std::wstring PrintMIDIInputDeviceInfo(int index);
 	@param index 0-based index of an output MIDI device
 	@return a wide string of the format "Output Dev # - [name of output device]"
 */
-std::wstring PrintMIDIOutputDeviceInfo(int index)
+std::wstring PrintMIDIOutputDeviceInfo(int index);
 
 /**
 	@return a string listing all of the MIDI devices visible to Windows
