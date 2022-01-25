@@ -1,6 +1,13 @@
+/**
+	Classes for interfacing with the Windows MIDI API. 
+	@file MIDIMessaging.h
+	@author Cole McKinney
+	@version 2022-01-24
+*/
 #pragma once
 
 #include <string>
+#include <ostream>
 
 // WIN32 MIDI API ///
 #include <Windows.h>
@@ -10,11 +17,43 @@
 
 #include "MIDIMsgDefs.h"
 
-// functions for interpreting information provided by the Windows MIDI API
+/**
+	@param errorCode the return value of a Windows MIDI function
+	@return a wide-string of the error associated with the errorCode
+*/
 std::wstring midiInParseError(MMRESULT errorCode);
+
+/**
+	@param errorCode the return value of a Windows MIDI function
+	@return a wide-string of the error associated with the errorCode
+*/
 std::wstring midiOutParseError(MMRESULT errorCode);
+
+/**
+	@param index 0-based index of an input MIDI device
+	@return a wide string of the format "Input Dev # - [name of input device]"
+*/
 std::wstring PrintMIDIInputDeviceInfo(int index);
-std::wstring PrintMIDIDeviceCount(); 
+
+/**
+	@param index 0-based index of an output MIDI device
+	@return a wide string of the format "Output Dev # - [name of output device]"
+*/
+std::wstring PrintMIDIOutputDeviceInfo(int index)
+
+/**
+	@return a string listing all of the MIDI devices visible to Windows
+*/
+std::wstring PrintMIDIDeviceCount();
+
+/**
+    Overloaded operator for printing the ShortMsg type in the format:
+      Ch## __MSG_NAME__; K### V###
+      Channel number, the MIDI code, the associated piano key (Middle C = 60), the velocity (0-127)
+    @param os the output stream to write to
+    @param msg the MIDI message to be printed
+    @return return the input stream; for chaining the operator multiple times
+*/
 std::wostream& operator<<(std::wostream& os, const Midi::ShortMsg& msg);
 
 // base class for an object that can connect to a MIDI input device and handle the messages
@@ -68,15 +107,4 @@ public:
 
 	void beep();
 	void SendShortMsg(Midi::ShortMsg msg);
-};
-
-// an example class for deriving an InputMidiDevice
-class KeyboardDisplay : public InputMidiDevice {
-
-	bool boardState[100];
-
-	void HandleMidiMessage(Midi::ShortMsg msg, DWORD t_ms);
-
-public:
-	KeyboardDisplay(int index);
 };

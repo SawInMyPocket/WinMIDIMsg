@@ -1,4 +1,10 @@
-﻿#include "MIDIMessaging.h"
+﻿/**
+	Classes for interfacing with the Windows MIDI API. 
+	@file MIDIMessaging.cpp
+	@author Cole McKinney
+	@version 2022-01-24
+*/
+#include "MIDIMessaging.h"
 
 // Win32 MIDI documentation
 // https://docs.microsoft.com/en-us/windows/win32/multimedia/musical-instrument-digital-interface--midi
@@ -73,7 +79,7 @@ wstring PrintMIDIDeviceCount() {
 }
 
 std::wostream& operator<<(std::wostream& os, const Midi::ShortMsg& msg) {
-	//Ch## __MSG_NAME__; K### V###\0
+	//Ch## __MSG_NAME__; K### V###
 	os << "Ch" << MIDI_MSG_CHNL(msg);
 
 	const char* name;
@@ -242,32 +248,3 @@ OutputMidiDevice::~OutputMidiDevice() {
 	
 	delete pDeviceCapabilities;
 };
-
-
-/////////////////////////////////////////////////////////////
-// KeyboardDisplay-specific definitions /////////////////////
-void KeyboardDisplay::HandleMidiMessage(Midi::ShortMsg msg, DWORD t_ms) {
-	if (MIDI_MSG_CODE(msg) == Midi::NOTE_ON) {
-		boardState[msg.bData[1]] = true;
-	}
-	else if (MIDI_MSG_CODE(msg) == Midi::NOTE_OFF) {
-		boardState[msg.bData[1]] = false;
-	}
-
-	if (MIDI_MSG_CODE(msg) == Midi::NOTE_OFF || MIDI_MSG_CODE(msg) == Midi::NOTE_ON) {
-		// there's a better way to do this looping
-		system("cls");
-		for (int l = 0; l < 4; l++) {
-			for (int i = 0; i < 100; i++) {
-				wcout.put(boardState[i] ? 'H' : '|');
-			}
-			wcout.put('\n');
-		}
-		wcout.flush();
-	}
-}
-
-KeyboardDisplay::KeyboardDisplay(int index) : InputMidiDevice(index) {
-	for (int i = 0; i < 100; i++)
-		boardState[i] = false;
-}
