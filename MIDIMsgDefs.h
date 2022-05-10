@@ -11,8 +11,8 @@
 #define MIDI_MSG_CHNL(m) (m.bData[0] & 0x0F)
 
 namespace Midi {
-	//for note messages, the 4 bytes are used like so -> [name code, key, velocity, 0]
-	//the Windows MIDI intterface passes it's messages around as DWORDs
+	// for note messages, the 4 bytes are used like so -> [name code, key, velocity, 0]
+	// the Windows MIDI interface passes it's messages around as DWORDs
 	union ShortMsg {
 		BYTE bData[4];
 		DWORD dwData;
@@ -24,7 +24,7 @@ namespace Midi {
 		DWORD time;
 	};
 
-	// Shortcust for the name codes needed in MIDI messages
+	// Shortcuts for the name codes needed in MIDI messages
 	enum MsgName {
 		NOTE_OFF = 0x80,
 		NOTE_ON = 0x90,
