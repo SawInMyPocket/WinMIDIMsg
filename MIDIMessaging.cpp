@@ -116,7 +116,7 @@ std::wostream& operator<<(std::wostream& os, const Midi::ShortMsg& msg) {
 
 /////////////////////////////////////////////////////////////
 // InputMidiDevice-specific definitions /////////////////////
-void CALLBACK InputMidiDevice::InputMidiCallback(HMIDIIN deviceHandle, UINT msgCode, 
+void CALLBACK InputMidiDevice::InputMidiCallback(HMIDIIN /*deviceHandle*/, UINT msgCode, 
 	DWORD_PTR userInstData, DWORD_PTR dwParam1, DWORD_PTR dwParam2) {
 	InputMidiDevice* instObj = (InputMidiDevice*)(userInstData);
 
@@ -192,7 +192,7 @@ InputMidiDevice::~InputMidiDevice() {
 }
 /////////////////////////////////////////////////////////////
 // OutputMidiDevice-specific definitions /////////////////////
-void CALLBACK OutputMidiDevice::OutputMidiCallback(HMIDIOUT deviceHandle, UINT msgCode, DWORD_PTR userInstData, DWORD_PTR dwParam1, DWORD_PTR dwParam2) {
+void CALLBACK OutputMidiDevice::OutputMidiCallback(HMIDIOUT /*deviceHandle*/, UINT msgCode, DWORD_PTR /*userInstData*/, DWORD_PTR /*dwParam1*/, DWORD_PTR /*dwParam2*/) {
 	switch (msgCode) {
 	case MOM_OPEN:
 		wcout << "MOM_OPEN\n";

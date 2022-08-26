@@ -38,6 +38,8 @@ namespace Midi {
 
 	// message for resetting the state of a MIDI output device
 	const ShortMsg ALL_NOTES_OFF = {CTRL_CHANGE, 0x7B, 0, 0};
+	const BYTE C4 = 60;
+	const BYTE C_MID = C4;
 }
 
 #endif // WINDMIDIMDG_MIDIMSGDEFS_H_
