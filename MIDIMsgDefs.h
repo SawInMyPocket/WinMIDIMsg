@@ -1,11 +1,12 @@
 /**
-	Data types to use whenn interfacing with the Windows MIDI subsystem
+	Data types to use when interfacing with the Windows MIDI subsystem
 	@file MIDIMsgDefs.h
 	@author Cole McKinney
 	@version 2022-01-05
 */
 
-#pragma once
+#ifndef WINDMIDIMDG_MIDIMSGDEFS_H_
+#define WINDMIDIMDG_MIDIMSGDEFS_H_
 
 #define MIDI_MSG_CODE(m) (m.bData[0] & 0xF0)
 #define MIDI_MSG_CHNL(m) (m.bData[0] & 0x0F)
@@ -39,3 +40,4 @@ namespace Midi {
 	const ShortMsg ALL_NOTES_OFF = {CTRL_CHANGE, 0x7B, 0, 0};
 }
 
+#endif // WINDMIDIMDG_MIDIMSGDEFS_H_

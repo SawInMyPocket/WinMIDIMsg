@@ -4,7 +4,8 @@
 	@author Cole McKinney
 	@version 2022-01-24
 */
-#pragma once
+#ifndef WINDMIDIMDG_MIDIMESSAGING_H_
+#define WINDMIDIMDG_MIDIMESSAGING_H_
 
 #include <string>
 #include <ostream>
@@ -108,3 +109,5 @@ public:
 	void beep();
 	void SendShortMsg(Midi::ShortMsg msg);
 };
+
+#endif // WINDMIDIMDG_MIDIMESSAGING_H_
