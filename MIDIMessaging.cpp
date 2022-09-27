@@ -61,9 +61,16 @@ wstring PrintMIDIOutputDeviceInfo(int index) {
 	return printString.str();
 }
 
-wstring PrintMIDIDeviceCount() {
-	UINT midiInCount = midiInGetNumDevs();
-	UINT midiOutCount = midiOutGetNumDevs();
+int GetMIDIInputDeviceCount() {
+	return midiInGetNumDevs();
+}
+int GetMIDIOutputDeviceCount() {
+	return midiOutGetNumDevs();
+}
+
+wstring PrintMIDIDevices() {
+	UINT midiInCount = GetMIDIInputDeviceCount();
+	UINT midiOutCount = GetMIDIOutputDeviceCount();
 
 	std::wstringstream printString;
 
@@ -192,7 +199,8 @@ InputMidiDevice::~InputMidiDevice() {
 }
 /////////////////////////////////////////////////////////////
 // OutputMidiDevice-specific definitions /////////////////////
-void CALLBACK OutputMidiDevice::OutputMidiCallback(HMIDIOUT /*deviceHandle*/, UINT msgCode, DWORD_PTR /*userInstData*/, DWORD_PTR /*dwParam1*/, DWORD_PTR /*dwParam2*/) {
+void CALLBACK OutputMidiDevice::OutputMidiCallback(HMIDIOUT /*deviceHandle*/, UINT msgCode, DWORD_PTR /*userInstData*/, 
+                                                   DWORD_PTR /*dwParam1*/, DWORD_PTR /*dwParam2*/) {
 	switch (msgCode) {
 	case MOM_OPEN:
 		wcout << "MOM_OPEN\n";

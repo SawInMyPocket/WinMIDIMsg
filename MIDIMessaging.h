@@ -43,9 +43,20 @@ std::wstring PrintMIDIInputDeviceInfo(int index);
 std::wstring PrintMIDIOutputDeviceInfo(int index);
 
 /**
-	@return a string listing all of the MIDI devices visible to Windows
+	@return the number of MIDI devices found by midiOutGetNumDevs
 */
-std::wstring PrintMIDIDeviceCount();
+int GetMIDIInputDeviceCount();
+
+/**
+	@return the number of MIDI devices found by midiOutGetNumDevs
+*/
+int GetMIDIOutputDeviceCount();
+
+/**
+	Uses PrintMIDIOutputDeviceInfo and PrintMIDIInputDeviceInfo
+	@return a string listing all of the MIDI devices visible to Windows and their Device Info
+*/
+std::wstring PrintMIDIDevices();
 
 /**
     Overloaded operator for printing the ShortMsg type in the format:
