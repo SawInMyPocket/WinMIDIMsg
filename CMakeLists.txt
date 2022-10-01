@@ -13,3 +13,8 @@ target_include_directories(winMIDIMsg INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}")
 # adds build target for demo/testing purposes
 add_executable(WMM_Demo wmmDemo.cpp)
 target_link_libraries(WMM_Demo PUBLIC winMIDIMsg)
+
+include(CTest)
+add_test(NAME BuildTest COMMAND WMM_Demo)
+add_test(NAME OutputTest COMMAND WMM_Demo o 0)
+add_test(NAME InputTest COMMAND WMM_Demo i 0)
