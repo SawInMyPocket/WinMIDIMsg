@@ -166,7 +166,7 @@ void InputMidiDevice::OnDeviceClose() {
 
 wstring InputMidiDevice::SelfIdentify() {
 	std::wstringstream str;
-	str << "This is an Input MIDI device on input number [" << char(deviceId) + '0' << "]";
+	str << "This is an Input MIDI device on input number [" << char(deviceId + '0') << "]";
 	return str.str();
 }
 
@@ -220,9 +220,8 @@ void OutputMidiDevice::beep() {
 	newMsg.bData[1] = 60; // middle C
 	newMsg.bData[2] = 0b01111111; // maximum volume
 	newMsg.bData[3] = 0; // always set to 0
-
-	MMRESULT err;
-	MMSYSERRCHECK(midiOutShortMsg(deviceHandle, newMsg.dwData));
+	
+	SendShortMsg(newMsg);
 }
 
 void OutputMidiDevice::SendShortMsg(Midi::ShortMsg msg) {
@@ -234,7 +233,7 @@ void OutputMidiDevice::SendShortMsg(Midi::ShortMsg msg) {
 
 wstring OutputMidiDevice::SelfIdentify() {
 	std::wstringstream str; 
-	str << "Output MIDI device [" << char(deviceId) + '0' << "]";
+	str << "Output MIDI device [" << char(deviceId + '0') << "]";
 	str << "\t" << pDeviceCapabilities->szPname;
 	return str.str();
 }
